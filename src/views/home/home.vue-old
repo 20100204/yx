@@ -1,0 +1,430 @@
+<style scoped>
+	.layout {
+		border: 1px solid #d7dde4;
+		background: #f5f7f9;
+		position: relative;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.layout-logo {
+		width: 100px;
+		height: 30px;
+		background: #5b6270;
+		border-radius: 3px;
+		float: left;
+		position: relative;
+		top: 15px;
+		left: 20px;
+	}
+
+	.layout-nav {
+		width: 420px;
+		margin: 0 auto;
+		margin-right: 20px;
+	}
+
+	.layout-footer-center {
+		text-align: center;
+	}
+
+	   .ivu-card-body p{
+        margin-left: 20px;
+        line-height:100px;
+        color:#5cadff;
+        font-size: 18px;
+        font-family: "微软雅黑";
+    }
+@media screen and (max-width: 500px) {
+     .ivu-card-body p{
+        line-height:40px;
+        margin-left:20px;
+        color:#5cadff;
+        font-size: 18px;
+        font-family: "微软雅黑";
+    }
+}
+</style>
+<template>
+	<div class="layout">
+		<Layout>
+
+			<Content :style="{padding: '0 3%'}">
+				<Breadcrumb :style="{margin: '20px 0'}">
+					<Select v-model="model1" style="width:100px" @on-change="changeuser(1)" :disabled="roleid==2?true:false">
+						<i-Option v-for="item in cityList" :value="item.value">{{item.label}}</i-Option>
+					</Select>
+				</Breadcrumb>
+				<Card>
+					<div>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="user_created_count" :end-val="count.createUser" iconType="android-person-add" color="#2d8cf0" intro-text="今日新增买家"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="visit_count" :end-val="count.visit" iconType="ios-eye" color="#64d572" :iconSize="50" intro-text="本周新增买家"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_count" :end-val="count.collection" iconType="upload" color="#ffd572" intro-text="本月新增买家"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_count" :end-val="count.transfer" iconType="shuffle" color="#f25e43" intro-text="买家总量"></infor-card>
+							</Col>
+						</Row>
+					</div>
+				</Card>
+			</Content>
+			<Content :style="{padding: '0 3%'}">
+				<Breadcrumb :style="{margin: '20px 0'}">
+					<Select v-model="model2" size="small" style="width:100px" @on-change="changeuser(2)" :disabled="roleid==2?true:false">
+						<Option v-for="item in cityList" :value="item.value">{{item.label}}</Option>
+					</Select>
+				</Breadcrumb>
+				<Card>
+					<div>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="user_created_user" :end-val="user.createUser" iconType="android-person-add" color="#2d8cf0" intro-text="今日新增店东"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="visit_user" :end-val="user.visit" iconType="ios-eye" color="#64d572" :iconSize="50" intro-text="本周新增店东"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_user" :end-val="user.collection" iconType="upload" color="#ffd572" intro-text="本月新增店东"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_user" :end-val="user.transfer" iconType="shuffle" color="#f25e43" intro-text="店东总数"></infor-card>
+							</Col>
+						</Row>
+					</div>
+				</Card>
+			</Content>
+			<Content :style="{padding: '0 3%'}">
+				<Breadcrumb :style="{margin: '20px 0'}">
+					<Select v-model="model3" size="small" style="width:100px" @on-change="changeuser(3)" :disabled="roleid==2?true:false">
+						<Option v-for="item in cityList" :value="item.value">{{item.label}}</Option>
+					</Select>
+				</Breadcrumb>
+				<Card>
+					<div>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="user_created_boss" :end-val="boss.createUser" iconType="android-person-add" color="#2d8cf0" intro-text="今日买家订单数量"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="visit_boss" :end-val="boss.visit" iconType="ios-eye" color="#64d572" :iconSize="50" intro-text="本周买家订单数量"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_boss" :end-val="boss.collection" iconType="upload" color="#ffd572" intro-text="本月买家订单数量"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_boss" :end-val="boss.transfer" iconType="shuffle" color="#f25e43" intro-text="买家订单总数量"></infor-card>
+							</Col>
+						</Row>
+					</div>
+				</Card>
+			</Content>
+			<Content :style="{padding: '0 3%'}">
+				<Breadcrumb :style="{margin: '20px 0'}">
+					<Select v-model="model4" size="small" style="width:100px" @on-change="changeuser(4)" :disabled="roleid==2?true:false">
+						<Option v-for="item in cityList" :value="item.value">{{item.label}}</Option>
+					</Select>
+				</Breadcrumb>
+				<Card>
+					<div>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="user_created_nums" :end-val="nums.createUser" decimals="2" iconType="android-person-add" color="#2d8cf0" intro-text="今日店东分润"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="visit_nums" :end-val="nums.visit" decimals="2" iconType="ios-eye" color="#64d572" :iconSize="50" intro-text="本周店东分润"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_nums" :end-val="nums.collection" decimals="2" iconType="upload" color="#ffd572" intro-text="本月店东分润"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="6" :md="6" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_nums" :end-val="nums.transfer" decimals="2" iconType="shuffle" color="#f25e43" intro-text="店东总分润"></infor-card>
+							</Col>
+						</Row>
+					</div>
+				</Card>
+			</Content>
+			<Content :style="{padding: '0 3%'}">
+
+				<Breadcrumb :style="{margin: '20px 0'}">
+
+					<Select v-model="model5" size="small" style="width:100px" @on-change="changeuser(5)" :disabled="roleid==2?true:false">
+						<Option v-for="item in cityList" :value="item.value">{{item.label}}</Option>
+					</Select>
+				</Breadcrumb>
+				<Card>
+					<div>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="3" :md="3" :style="{marginBottom: '10px'}">
+							<p>今日商品top5</p>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="createUser_user[0]" :end-val="bosslist.todayTop[0].num" iconType="bag" color="#2d8cf0" :intro-text="bosslist.todayTop[0].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="createUser_user[1]" :end-val="bosslist.todayTop[1].num" iconType="bag" color="#64d572" :intro-text="bosslist.todayTop[1].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="createUser_user[2]" :end-val="bosslist.todayTop[2].num" iconType="bag" color="#ffd572" :intro-text="bosslist.todayTop[2].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="createUser_user[3]" :end-val="bosslist.todayTop[3].num" iconType="bag" color="#f25e43" :intro-text="bosslist.todayTop[3].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="createUser_user[4]" :end-val="bosslist.todayTop[4].num" iconType="bag" color="#EE8262" :intro-text="bosslist.todayTop[4].title"></infor-card>
+							</Col>
+
+						</Row>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="3" :md="3" :style="{marginBottom: '10px'}">
+							<p>本周商品top5</p>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="inforCard_user[0]" :end-val="bosslist.weekTop[0].num" iconType="bag" color="#2d8cf0" :intro-text="bosslist.weekTop[0].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="inforCard_user[1]" :end-val="bosslist.weekTop[1].num" iconType="bag" color="#64d572" :intro-text="bosslist.weekTop[1].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="inforCard_user[2]" :end-val="bosslist.weekTop[2].num" iconType="bag" color="#ffd572" :intro-text="bosslist.weekTop[2].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="inforCard_user[3]" :end-val="bosslist.weekTop[3].num" iconType="bag" color="#f25e43" :intro-text="bosslist.weekTop[3].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="inforCard_user[4]" :end-val="bosslist.weekTop[4].num" iconType="bag" color="#EE8262" :intro-text="bosslist.weekTop[4].title"></infor-card>
+							</Col>
+
+						</Row>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="3" :md="3" :style="{marginBottom: '10px'}">
+							<p>本月商品top5</p>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_user[0]" :end-val="bosslist.monthTop[0].num" iconType="bag" color="#2d8cf0" :intro-text="bosslist.monthTop[0].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_user[1]" :end-val="bosslist.monthTop[1].num" iconType="bag" color="#64d572" :intro-text="bosslist.monthTop[1].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_user[2]" :end-val="bosslist.monthTop[2].num" iconType="bag" color="#ffd572" :intro-text="bosslist.monthTop[2].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_user[3]" :end-val="bosslist.monthTop[3].num" iconType="bag" color="#f25e43" :intro-text="bosslist.monthTop[3].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="transfer_user[4]" :end-val="bosslist.monthTop[4].num" iconType="bag" color="#EE8262" :intro-text="bosslist.monthTop[4].title"></infor-card>
+							</Col>
+
+						</Row>
+						<Row :gutter="20">
+							<Col :xs="24" :sm="3" :md="3" :style="{marginBottom: '10px'}">
+							<p>销售商品总数top5</p>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_user[0]" :end-val="bosslist.all[0].num" iconType="bag" color="#2d8cf0" :intro-text="bosslist.all[0].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_user[1]" :end-val="bosslist.all[1].num" iconType="bag" color="#64d572" :intro-text="bosslist.all[1].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_user[2]" :end-val="bosslist.all[2].num" iconType="bag" color="#ffd572" :intro-text="bosslist.all[2].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_user[3]" :end-val="bosslist.all[3].num" iconType="bag" color="#f25e43" :intro-text="bosslist.all[3].title"></infor-card>
+							</Col>
+							<Col :xs="24" :sm="4" :md="4" :style="{marginBottom: '10px'}">
+							<infor-card id-name="collection_user[4]" :end-val="bosslist.all[4].num" iconType="bag" color="#EE8262" :intro-text="bosslist.all[4].title"></infor-card>
+							</Col>
+
+						</Row>
+					</div>
+				</Card>
+			</Content>
+			<Footer class="layout-footer-center"></Footer>
+		</Layout>
+	</div>
+</template>
+<script>
+	import Requests from './components/Requests.vue';
+	import cityData from './map-data/get-city-value.js';
+	import homeMap from './components/map.vue';
+	import dataSourcePie from './components/dataSourcePie.vue';
+	import visiteVolume from './components/visiteVolume.vue';
+	import serviceRequests from './components/serviceRequests.vue';
+	import userFlow from './components/userFlow.vue';
+	import countUp from './components/countUp.vue';
+	import inforCard from './components/inforCard.vue';
+	import mapDataTable from './components/mapDataTable.vue';
+	import toDoListItem from './components/toDoListItem.vue';
+
+	export default {
+		name: 'home',
+		components: {
+			Requests,
+			homeMap,
+			dataSourcePie,
+			visiteVolume,
+			serviceRequests,
+			userFlow,
+			countUp,
+			inforCard,
+			mapDataTable,
+			toDoListItem
+		},
+		data() {
+			return {
+				roleid: '',
+				count: {
+					createUser: 496,
+					visit: 3434,
+					collection: 3535,
+					transfer: 3535,
+				},
+				user: {
+					createUser: 1000,
+					visit: 10000,
+					collection: 10000,
+					transfer: 10000,
+					inforCard: 10000,
+				},
+				boss: {
+					createUser: 496,
+					visit: 3434,
+					collection: 3535,
+					transfer: 3535,
+				},
+				nums: {
+					createUser: 496,
+					visit: 3434,
+					collection: 3535,
+					transfer: 3535,
+				},
+				last: {
+					createUser: 496,
+					visit: 3434,
+					collection: 3535,
+					transfer: 3535,
+				},
+				bosslist: [
+					/*    todayTop:[],
+					    weekTop:[],
+					    monthTop:[],
+					    all:[]*/
+				],
+				cityList: [],
+				model1: '',
+				model2: '',
+				model3: '',
+				model4: '',
+				model5: '',
+			}
+		},
+		methods: {
+			changeuser(type) {
+				var area = '';
+
+				switch(type) {
+					case 1:
+
+						area = this.model1;
+						break;
+					case 2:
+						area = this.model2;
+						break;
+					case 3:
+						area = this.model3;
+						break;
+					case 4:
+						area = this.model4;
+						break;
+					case 5:
+						area = this.model5;
+						break;
+				}
+
+				this.$http.post('citycmp/selectcity', {
+					type: type,
+					area: area
+				}).then((res) => {
+					console.log(res);
+					switch(type) {
+						case 1:
+							this.count.createUser = parseInt(res.data.rs.todayGuest);
+							this.count.visit = parseInt(res.data.rs.weekGuest);
+							this.count.collection = parseInt(res.data.rs.monthGuest);
+							this.count.transfer = parseInt(res.data.rs.allGuest);
+
+							break;
+						case 2:
+							this.user.createUser = parseInt(res.data.rs.todayShoper);
+							this.user.visit = parseInt(res.data.rs.weekShoper);
+							this.user.collection = parseInt(res.data.rs.monthShoper);
+							this.user.transfer = parseInt(res.data.rs.allShoper);
+
+							break;
+						case 3:
+							this.boss.createUser = parseInt(res.data.rs.todayOrder);
+							this.boss.visit = parseInt(res.data.rs.weekOrder);
+							this.boss.collection = parseInt(res.data.rs.monthOrder);
+							this.boss.transfer = parseInt(res.data.rs.allOrder);
+							break;
+						case 4:
+							this.nums.createUser = parseFloat(res.data.rs.todayProfitrate);
+							this.nums.visit = parseFloat(res.data.rs.weekProfitrate);
+							this.nums.collection = parseFloat(res.data.rs.monthProfitrate);
+							this.nums.transfer = parseFloat(res.data.rs.allProfitrate);
+							break;
+						case 5:
+							this.bosslist = res.data.rs;
+							console.log(this.bosslist);
+							break;
+					}
+				}).catch();
+
+			}
+
+		},
+		mounted() {
+			this.$http.get('citycmp/newhome').then((res) => {
+				console.log(res);
+				this.count.createUser = parseInt(res.data.guest.todayGuest);
+				this.count.visit = parseInt(res.data.guest.weekGuest);
+				this.count.collection = parseInt(res.data.guest.monthGuest);
+				this.count.transfer = parseInt(res.data.guest.allGuest);
+				this.user.createUser = parseInt(res.data.shoper.todayShoper);
+				this.user.visit = parseInt(res.data.shoper.weekShoper);
+				this.user.collection = parseInt(res.data.shoper.monthShoper);
+				this.user.transfer = parseInt(res.data.shoper.allShoper);
+				this.boss.createUser = parseInt(res.data.order.todayOrder);
+				this.boss.visit = parseInt(res.data.order.weekOrder);
+				this.boss.collection = parseInt(res.data.order.monthOrder);
+				this.boss.transfer = parseInt(res.data.order.allOrder);
+
+				this.nums.createUser = parseFloat(res.data.profit.todayProfitrate);
+				this.nums.visit = parseFloat(res.data.profit.weekProfitrate);
+				this.nums.collection = parseFloat(res.data.profit.monthProfitrate);
+				this.nums.transfer = parseFloat(res.data.profit.allProfitrate);
+				this.bosslist = res.data.goods;
+				this.roleid = res.data.roleId;
+				console.log(this.bosslist);
+				this.cityList = res.data.citys;
+
+				//this.count = res.data;
+			}).catch((err) => {
+				console.log(err)
+			});
+		},
+				beforeUpdate(){
+			   var ivucard=document.querySelectorAll(".ivu-card");
+                   for(var i=0;i<ivucard.length;i++){
+               ivucard[i].style.fontSize="20px"
+		}
+	}
+	}
+</script>

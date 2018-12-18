@@ -1,0 +1,464 @@
+#data-show {
+  display: flex;
+  width: 100%;
+  min-width: 1000px;
+  height: 100%;
+  background: white;
+  border-radius: 5px;
+  padding: 16px;
+  overflow: hidden;
+  position: relative;
+  .ivu-row,
+  .ivu-col,
+  .ivu-card {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  .ivu-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .ivu-card-body {
+    flex: 1;
+    display: flex;
+    position: relative;
+  }
+  .menu {
+    width: 250px;
+    height: 100%;
+    border: 1px solid #cccccc;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    flex-direction: column;
+    .ivu-card-head {
+      padding: 8px;
+    }
+    .ivu-card-body {
+      padding: 0;
+    }
+    .sum {
+      flex: 1;
+      width: 100%;
+      height: auto;
+      font-size: 14px;
+      padding: 10px;
+      border: none;
+      .ivu-card-extra {
+        color: #2d8cf0;
+        cursor: pointer;
+        top: 18px;
+        .ivu-dropdown-menu {
+          min-width: 50px;
+          max-width: 100px;
+        }
+      }
+      .ivu-card-body {
+        padding: 10px 0;
+        border-bottom: 1px solid #e9eaec;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        p {
+          display: flex;
+          height: 15%;
+          margin-top: 10px;
+        }
+        p:first-of-type {
+          margin-top: 0;
+        }
+        span {
+          display: inline-block;
+          text-align: center;
+          line-height: 1.4;
+          padding: 10px 8px;
+          overflow: hidden;
+          transition: all 0.5s;
+        }
+        .title {
+          width: 100px;
+          color: white;
+          background: #2d8cf0;
+          border-radius: 5px 0 0 5px;
+        }
+        .body {
+          flex: 1;
+          border: 1px solid #e9eaec;
+          border-radius: 0 5px 5px 0;
+        }
+        p:hover .body {
+          border-color: #2d8cf0;
+        }
+      }
+    }
+    .goods-ranking {
+      width: 100%;
+      height: 270px;
+      padding: 10px;
+      padding-top: 0;
+      border: none;
+      .ivu-table td {
+        height: 36px;
+      }
+      .ranking,
+      .sales-num {
+        text-align: center;
+        .ivu-table-cell {
+          padding: 0 10px;
+          white-space: nowrap;
+        }
+      }
+      .goods-name {
+        width: 75%;
+        .ivu-table-cell {
+          padding: 0 10px;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+  .data-map {
+    flex: 1;
+    height: 100%;
+    border: 1px solid #cccccc;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    overflow: hidden;
+    float: right;
+    position: relative;
+    .reset-map,
+    .search-open-close {
+      width: 19px;
+      height: 19px;
+      color: #5b89e9;
+      text-align: center;
+      line-height: 18px;
+      background: linear-gradient(#fefefe, #ececec);
+      border: 1px solid #7f7f7f;
+      border-radius: 4px;
+      position: absolute;
+      left: 11px;
+      z-index: 10;
+      cursor: pointer;
+    }
+    .reset-map:hover {
+      background: #e6ecf6;
+    }
+    .search-open-close:hover {
+      background: #e6ecf6;
+    }
+    .reset-map {
+      top: 52px;
+    }
+    .search-open-close {
+      top: 75px;
+    }
+    .search-all-shop {
+      width: 670px;
+      height: 80px;
+      padding: 10px;
+      padding-bottom: 0;
+      background: white;
+      border: 1px solid #e9eaec;
+      border-radius: 5px;
+      transition: all 0.2s cubic-bezier(0, 0, 1, 1);
+      position: absolute;
+      top: -80px;
+      left: 40px;
+      z-index: 100;
+      display: flex;
+      justify-content: space-around;
+      .title {
+        text-align: center;
+      }
+      .ipts {
+        width: auto;
+        overflow: hidden;
+      }
+      .btns {
+        width: 100px;
+        .ivu-btn {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+      .ivu-input-wrapper {
+        width: 275px;
+        margin-left: 5px;
+        margin-bottom: 10px;
+      }
+    }
+    .show-search-all-shop {
+      top: 5px;
+    }
+    .search-list {
+      width: 200px;
+      height: auto;
+      border: 1px solid #2d8cf0;
+      border-radius: 5px;
+      overflow: hidden;
+      transition: all 0.2s cubic-bezier(0, 0, 1, 1);
+      position: absolute;
+      bottom: 40px;
+      left: -200px;
+      z-index: 100;
+      .ivu-card-head {
+        color: white;
+        background: #2d8cf0;
+        border: none;
+      }
+      .ivu-card-body {
+        height: auto;
+        max-height: 250px;
+        padding: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        transition: all 0.3s;
+      }
+      .ivu-card-body::-webkit-scrollbar {
+        width: 5px;
+      }
+      .ivu-card-body::-webkit-scrollbar-thumb {
+        background: #2d8cf0;
+        border-radius: 2.5px;
+      }
+      .ivu-card-body::-webkit-scrollbar-track-piece {
+        background: #f1f1f1;
+      }
+      .arrow {
+        display: inline-block;
+        transform: rotate(0deg);
+        cursor: pointer;
+      }
+      .close {
+        float: right;
+        cursor: pointer;
+      }
+      .search-data {
+        width: 100%;
+        div {
+          border-bottom: 1px solid #e9eaec;
+          padding: 5px 20px;
+          cursor: pointer;
+        }
+        div:hover {
+          background: #ebf7ff;
+        }
+        span {
+          padding-right: 10px;
+        }
+      }
+    }
+    .show-search-list {
+      left: 5px;
+    }
+    .show-search-list-body {
+      .arrow {
+        transform: rotate(90deg);
+      }
+      .ivu-card-body {
+        height: 0;
+      }
+    }
+  }
+}
+
+.ivu-table {
+  .table-shopTel {
+    width: 110px;
+  }
+  .table-shopAddress {
+    width: 120px;
+  }
+  .table-orderDate {
+    width: 110px;
+  }
+}
+
+.vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1100px;
+  left: 50%;
+  margin-left: -550px;
+  .ivu-modal {
+    width: 100%;
+    top: 0;
+    margin: 0;
+  }
+  .ivu-modal-footer {
+    /*display: none;*/
+  }
+  .ivu-table-body {
+    max-height: 480px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .goods-ranking {
+    width: 100%;
+    height: auto;
+    padding-top: 0;
+    .ivu-card-head,
+    .ivu-card-body {
+      padding: 10px;
+    }
+    .ivu-table td {
+      height: 36px;
+    }
+    .ranking,
+    .sales-num {
+      text-align: center;
+      .ivu-table-cell {
+        padding: 0 10px;
+        white-space: nowrap;
+      }
+    }
+    .goods-name {
+      width: 75%;
+      .ivu-table-cell {
+        padding: 0px 10px;
+        white-space: nowrap;
+      }
+    }
+  }
+  #city-data {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    .menu {
+      width: 250px;
+      height: 100%;
+      margin-right: 16px;
+      position: relative;
+      .city-data-sum {
+        width: 100%;
+        font-size: 14px;
+        border-radius: 5px;
+        overflow: hidden;
+        .ivu-card-head,
+        .ivu-card-body {
+          padding: 10px;
+        }
+        .ivu-card-body {
+          border-bottom: 1px solid #e9eaec;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          p {
+            display: flex;
+            height: 10%;
+            margin-top: 10px;
+          }
+          p:first-of-type {
+            margin-top: 0;
+          }
+          span {
+            display: inline-block;
+            text-align: center;
+            line-height: 1.4;
+            padding: 8px;
+            overflow: hidden;
+            transition: all 0.5s;
+          }
+          .title {
+            width: 100px;
+            color: white;
+            background: #2d8cf0;
+            border-radius: 5px 0 0 5px;
+          }
+          .body {
+            flex: 1;
+            border: 1px solid #e9eaec;
+            border-radius: 0 5px 5px 0;
+          }
+          p:hover .body {
+            border-color: #2d8cf0;
+          }
+        }
+      }
+      .goods-ranking {
+        width: 100%;
+        height: 285px;
+        padding-top: 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+      }
+    }
+    .city-map {
+      flex: 1;
+      height: 100%;
+      .city-map-title {
+        padding-bottom: 10px;
+      }
+      .ivu-card-head,
+      .ivu-card-body {
+        padding: 10px;
+      }
+      .ivu-card-body {
+        height: 92.5%;
+        position: relative;
+      }
+      .reset-map {
+        width: 19px;
+        height: 19px;
+        color: #5b89e9;
+        text-align: center;
+        line-height: 18px;
+        background: linear-gradient(#fefefe, #ececec);
+        border: 1px solid #7f7f7f;
+        border-radius: 5px;
+        position: absolute;
+        top: 65px;
+        left: 22px;
+        z-index: 10;
+        cursor: pointer;
+      }
+    }
+  }
+  .search-city-shop {
+    margin-bottom: 0px;
+    .ivu-input-wrapper {
+      width: 115px;
+      margin-right: 5px;
+    }
+    .ivu-input-wrapper:first-of-type {
+      width: 280px;
+    }
+    .ivu-btn {
+      margin-right: 5px;
+    }
+  }
+  .span {
+    color: rgb(45, 140, 240);
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .span:hover {
+    color: #57a3f3;
+  }
+  .sum {
+    font-weight: bold;
+    border-top: none;
+    .ivu-table-header {
+      display: none;
+    }
+    .ivu-table-body td {
+      background: #f8f8f9;
+    }
+  }
+}
+
+.show-trends {
+  .ivu-modal-body {
+    height: auto;
+  }
+}
+
+@media (max-width: 1000px) {
+  .vertical-center-modal {
+    left: 0;
+    margin-left: 0;
+  }
+}

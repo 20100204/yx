@@ -1,0 +1,24 @@
+ <template> 
+    <china-map></china-map> 
+</template>
+<script>
+//import BaiduMap from 'vue-baidu-map/components/map/Map.vue' 
+import chinaMap from  './components/china-map.vue'; 
+export default {
+  name: "dataShow",
+  components: {
+  //  BaiduMap
+  	chinaMap
+  },
+  mounted(){
+     
+  } 
+};
+</script>
+
+<style scoped >
+.bm-view {
+  width: 100%;
+  height: 300px;
+} 
+</style>
